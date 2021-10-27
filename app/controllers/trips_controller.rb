@@ -1,10 +1,9 @@
 class TripsController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound,with: :render_not_found_response
-    rescue_from ActiveRecord::RecordInvalid,with: :render_unprocessable_entity_response
-    
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
     def index
-        all_trips = Trip.all
-        render json: all_trips
+        render json: Trip.all, status: :ok
     end
 
     def show
@@ -25,12 +24,11 @@ class TripsController < ApplicationController
 
     def destroy
         trip = find_trip
-        Trip.destroy!
+        trip.destroy!
         head :no_content
     end
 
-
-    private
+    private 
 
     def find_trip
         Trip.find(params[:id])
@@ -40,11 +38,13 @@ class TripsController < ApplicationController
         params.permit(:name, :description, :creator, :location, :start_date, :end_date, :image, :budget)
     end
 
+    def 
+
     def render_not_found_response
-        render json: {errors: "Trip not found"}, status: 404
+        render json: { error: "Trip not found" }, status: :not_found
     end
 
     def render_unprocessable_entity_response(invalid)
-        render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 end

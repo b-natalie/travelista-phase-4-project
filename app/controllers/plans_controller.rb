@@ -1,10 +1,9 @@
 class PlansController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound,with: :render_not_found_response
-    rescue_from ActiveRecord::RecordInvalid,with: :render_unprocessable_entity_response
-    
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
     def index
-        all_plans = Plan.all
-        render json: all_plans
+        render json: Plan.all, status: :ok
     end
 
     def show
@@ -29,22 +28,23 @@ class PlansController < ApplicationController
         head :no_content
     end
 
-
-    private
+    private 
 
     def find_plan
         Plan.find(params[:id])
     end
 
     def plan_params
-        params.permit(:name, :description, :location, :date, :duration, :description, :cost, :trip_id)
+        params.permit(:name, :description, :location, :date, :start_time, :duration, :cost, :trip_id)
     end
 
+    def 
+
     def render_not_found_response
-        render json: {errors: "plan not found"}, status: 404
+        render json: { error: "Plan not found" }, status: :not_found
     end
 
     def render_unprocessable_entity_response(invalid)
-        render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 end

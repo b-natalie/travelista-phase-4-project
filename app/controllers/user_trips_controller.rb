@@ -1,10 +1,10 @@
-class Useruser_tripsController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound,with: :render_not_found_response
-    rescue_from ActiveRecord::RecordInvalid,with: :render_unprocessable_entity_response
-    
+
+class UserTripsController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
     def index
-        all_user_trips = UserTrip.all
-        render json: all_user_trips
+        render json: UserTrip.all, status: :ok
     end
 
     def show
@@ -29,8 +29,7 @@ class Useruser_tripsController < ApplicationController
         head :no_content
     end
 
-
-    private
+    private 
 
     def find_user_trip
         UserTrip.find(params[:id])
@@ -40,14 +39,14 @@ class Useruser_tripsController < ApplicationController
         params.permit(:method_of_transportation, :transportation_cost, :commentary, :stay, :stay_cost, :trip_id, :user_id)
     end
 
+    def 
+
     def render_not_found_response
-        render json: {errors: "User Trip not found"}, status: 404
+        render json: { error: "UserTrip not found" }, status: :not_found
     end
 
     def render_unprocessable_entity_response(invalid)
-        render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
-end
-
 
 end
