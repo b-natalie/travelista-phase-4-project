@@ -1,30 +1,32 @@
 class UsersController < ApplicationController
+    skip_before_action :confirm_authentication
 
     def show
-        user = find_user
-        render json: user, status: :ok
+        if current_user
+            render json: user, status: :ok
+        else 
+            render json: { error: "No active session" }, status: :unauthorized
+        end
     end
 
     def create
-        user = User.create!(user_params)
-        render json: user, status: :created
+        user = User.new(user_params)
+        if user.save
+            session[:user_id] = user.id
+            render json: user, status: :created
+        else
+            render json: user.errors, status: :unprocessable_entity
+        end
     end
 
     private 
 
-    def find_user
-        User.find(params[:id])
-    end
+    # def find_user
+    #     User.find(params[:id])
+    # end
 
     def user_params
         params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 
-    def render_not_found_response
-        render json: { error: "User not found"}
-    end
-
-    def render_unprocessable_entity_response(invalid)
-        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
-    end
 end
