@@ -1,14 +1,18 @@
 import React from "react";
 import { Route, Switch } from "react-router";
+import Header from "./Header";
 import TripsPage from "./TripsPage";
 
 function AuthenticatedApp() {
     return (
-        <Switch>
-            <Route path="/trips">
-                <TripsPage />
-            </Route>
-        </Switch>
+        <>
+        <Header />
+            <Switch>
+                <Route path="/trips">
+                    <TripsPage />
+                </Route>
+            </Switch>
+        </>
     )
 }
 
