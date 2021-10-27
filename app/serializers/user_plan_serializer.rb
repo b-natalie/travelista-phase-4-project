@@ -1,3 +1,3 @@
 class UserPlanSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :user_id, :plan_id
 end
