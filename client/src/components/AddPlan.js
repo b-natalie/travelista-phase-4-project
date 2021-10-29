@@ -36,7 +36,7 @@ function AddPlan({ addPlan, tripId }) {
     }
 
     return (
-        <form className="row g-3" onSubmit={handleSubmit}>
+        <form className="row g-3" onSubmit={handleSubmit} style={{maxWidth: 940, margin: "auto"}} >
             <h2>Add A New Plan</h2>
             <div className="col-md-4">
                 <label htmlFor="inputEmail4" className="form-label">Activity Name</label>

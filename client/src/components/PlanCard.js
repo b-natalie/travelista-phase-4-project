@@ -72,7 +72,7 @@ function PlanCard({ plan, isEditable, deletePlan, editPlan }) {
     }
 
     return (
-        <div className="card mb-3" style={{maxWidth: 940}}>
+        <div className="card mb-3" style={{maxWidth: 940, margin: "auto"}}>
             {handleShowEditForm()}
         </div>
     )

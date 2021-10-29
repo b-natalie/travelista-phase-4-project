@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import AddActivity from "./AddPlan";
 import PlanContainer from "./PlanContainer";
 import TravelCard from "./TravelCard";
+import { useHistory } from "react-router-dom";
 
 function TripDetailPage({ deleteTrip, currentUser }) {
 
@@ -27,7 +28,9 @@ function TripDetailPage({ deleteTrip, currentUser }) {
     const [isEditedTravel, setIsEditedTravel] = useState(false)
     const [isEditedStay, setIsEditedStay] = useState(false)
 
-    const tripId = useParams().id;
+    const tripId = useParams().id
+
+    const history = useHistory()
 
     useEffect(() => {
         fetch(`/trips/${tripId}`)
@@ -42,6 +45,7 @@ function TripDetailPage({ deleteTrip, currentUser }) {
 
     function handleDelete() {
         deleteTrip(tripId)
+        history.push("/tripsbooked")
     }
 
     function checkIfUserCanEdit(tripUsers) {
@@ -115,18 +119,14 @@ function TripDetailPage({ deleteTrip, currentUser }) {
     }
 
     return (
-        <div>
-            <div className="card mb-3">
+        <div >
+            <div className="card mb-3" >
                 <img src={tripObj.image} className="img-fluid" alt="..." style={{maxHeight: 400}}></img>
                 <div className="card-body">
                     <h2 className="card-title"> {tripObj.name} </h2>
                     <p className="card-text">Location: {tripObj.location}</p>
                     <p className="card-text">Description: {tripObj.description}</p>
                     <p className="card-text">Creator: {tripObj.creator}</p>
-                    <p className="card-text">Going: {tripObj.users.map(user => user.first_name)}
-                        <span>    </span>
-                        <button type="button" className="btn btn-primary">Primary</button>
-                    </p>
                     <p className="card-text">{tripObj.start_date}</p>
                     <p className="card-text">Budget: ${tripObj.budget}</p>   
                     {isEditable ? <button type="button" className="btn btn-danger" onClick={handleDelete}>Delete Trip</button> : null }
@@ -134,7 +134,7 @@ function TripDetailPage({ deleteTrip, currentUser }) {
             </div>
             {isEditable ? <TravelCard userTrip={tripObj.user_trip} editTravel={editTravel} editStay={editStay}/> : null}
             <p/>
-            <h2>Trip Plans</h2>
+            <h2 style={{margin: "auto"}}>Trip Plans</h2>
             <p/>
             {/* <button type="button" className="btn btn-success">Add Activity</button> */}
             <PlanContainer plansArray={plansArray} isEditable={isEditable} editPlan={editPlan} deletePlan={deletePlan} />
