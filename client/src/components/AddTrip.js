@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function AddTrip({ postNewTrip, errorMessages }) {
 
@@ -12,6 +13,8 @@ function AddTrip({ postNewTrip, errorMessages }) {
         budget: 0
     })
 
+    const history = useHistory()
+
     function handleInput(event) {
         setNewTrip({
             ...newTrip,
@@ -22,11 +25,12 @@ function AddTrip({ postNewTrip, errorMessages }) {
     function handleSubmit(event) {
         event.preventDefault();
         postNewTrip(newTrip);
+        history.push("/tripsbooked")
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div class="container-fluid" style={{margin: "auto"}}>
+            <form onSubmit={handleSubmit} style={{margin: "auto"}}>
                 <div className="mb-3">
                     <label htmlFor="formGroupExampleInput" className="form-label">Name of Trip
                         <input type="text" className="form-control" name="name" value={newTrip.name} onChange={handleInput} />
