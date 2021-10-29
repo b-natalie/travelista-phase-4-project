@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function TripCard({ trip }) {
+
     return (
         <div className="card mb-3" style={{maxWidth: 940}}>
             <div className="row g-0">
