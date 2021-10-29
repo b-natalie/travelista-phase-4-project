@@ -1,8 +1,7 @@
 // client/src/components/App.js
 import { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import AuthenticatedApp from "./components/AuthenticatedApp";
-import TripsPage from "./components/TripsPage";
 import UnauthenticatedApp from "./components/UnauthenticatedApp";
 
 function App() {
@@ -22,25 +21,6 @@ function App() {
         }
       })
   }, []);
-
-  // return (
-  //   <BrowserRouter>
-  //     <div className="App">
-  //       <Switch>
-  //         <Route path="/testing">
-  //           <h1>Test Route</h1>
-  //         </Route>
-  //         <Route path="/trips">
-  //           <TripsPage />
-  //         </Route>
-  //         <Route path="/">
-  //           <h1>Page Count: {count}</h1>
-  //           <button class="ui button">Click Here</button>
-  //         </Route>
-  //       </Switch>
-  //     </div>
-  //   </BrowserRouter>
-  // );
 
   if(!authChecked) { return <div></div> }
   return (

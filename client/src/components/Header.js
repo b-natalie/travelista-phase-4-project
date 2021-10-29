@@ -1,11 +1,11 @@
 import React from "react"
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ handleLogout }) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">Travelista</a>
+                <a className="navbar-brand" href="/trips">Travelista</a>
                 {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button> */}
@@ -14,6 +14,8 @@ function Header() {
                     <Link to="/trips" className="nav-link" aria-current="page">Global Trips</Link>
                     <Link to="/tripsbooked" className="nav-link" aria-current="page">My Trips</Link>
                     <Link to="/addtrip" className="nav-link" aria-current="page">Add Trip</Link>
+                    {/* <Link to="/logout" className="nav-link" aria-current="page" >Logout</Link> */}
+                    <button type="button" className="btn btn-link" onClick={handleLogout}>Logout</button>
                 </div>
                 </div>
             </div>

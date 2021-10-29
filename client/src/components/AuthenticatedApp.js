@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch } from "react-router-dom";
 import AddTrip from "./AddTrip";
 import Header from "./Header";
 import TripDetailPage from "./TripDetailPage";
 import TripsBooked from "./TripsBooked";
 import TripsPage from "./TripsPage";
 
-function AuthenticatedApp({ currentUser }) {
+function AuthenticatedApp({ currentUser, setCurrentUser }) {
 
     const [tripsArr, setTripsArr] = useState([])
     const [tripsBookedArr, setTripsBookedArr] = useState([])
@@ -57,9 +57,21 @@ function AuthenticatedApp({ currentUser }) {
         .then(data => setIsDeleted(!isDeleted))
     }
 
+    function handleLogout() {
+        fetch("/logout", {
+            method: "DELETE"
+        })
+        .then(resp => {
+            if (resp.ok) {
+                setCurrentUser(null)
+                // window.history.push(null, "", "/")
+            }
+        })
+    }
+
     return (
         <>
-        <Header />
+        <Header handleLogout={handleLogout}/>
             <Switch>
                 <Route path="/trips/:id">
                     <TripDetailPage deleteTrip={deleteTrip} currentUser={currentUser}/>
