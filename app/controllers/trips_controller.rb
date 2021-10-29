@@ -12,7 +12,13 @@ class TripsController < ApplicationController
     end
 
     def create
-        trip = Trip.create!(trip_params)
+        trip = Trip.new(trip_params)
+        trip.creator = current_user.first_name
+        trip.save!
+        user_trip = UserTrip.create!(
+            user_id: @current_user.id,
+            trip_id: trip.id
+        )
         render json: trip, status: :created
     end
 
@@ -28,6 +34,10 @@ class TripsController < ApplicationController
         head :no_content
     end
 
+    def tripsbooked
+        render json: @current_user.trips.all
+    end
+
     private 
 
     def find_trip
@@ -35,7 +45,7 @@ class TripsController < ApplicationController
     end
 
     def trip_params
-        params.permit(:name, :description, :creator, :location, :start_date, :end_date, :image, :budget)
+        params.permit(:name, :description, :location, :start_date, :end_date, :image, :budget)
     end
 
     def 

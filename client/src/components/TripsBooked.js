@@ -1,11 +1,14 @@
 import React from "react";
 import TripCard from "./TripCard";
 
-function TripsPage({ tripsArr }) {
+function TripsBooked({ tripsBookedArr }) {
 
+    const url = window.location.pathname;
+    
     return (
         <div>
-            {tripsArr.map(trip => {
+            {console.log(url)}
+            {tripsBookedArr.map(trip => {
                 return (
                     <TripCard key={trip.id} trip={trip} />
                 )
@@ -14,4 +17,4 @@ function TripsPage({ tripsArr }) {
     )
 }
 
-export default TripsPage;
+export default TripsBooked;

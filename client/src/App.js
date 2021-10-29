@@ -42,7 +42,7 @@ function App() {
   //   </BrowserRouter>
   // );
 
-  if(!authChecked) { return <div></div>}
+  if(!authChecked) { return <div></div> }
   return (
     <Route>
       { currentUser ? (
