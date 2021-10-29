@@ -4,7 +4,7 @@ class UserPlansController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index
-        render json: UserPlan.all, status: :ok
+        render json: @current_user.user_plans.all, status: :ok
     end
 
     def show
