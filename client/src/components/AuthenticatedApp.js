@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import AddTrip from "./AddTrip";
 import Header from "./Header";
 import TripDetailPage from "./TripDetailPage";
@@ -13,6 +13,7 @@ function AuthenticatedApp({ currentUser, setCurrentUser }) {
     const [isAddedTrip, setIsAddedTrip] = useState(false)
     const [isDeleted, setIsDeleted] = useState(false)
     const [errorMessages, setErrorMessages] = useState([])
+    const history = useHistory()
 
     useEffect(() => {
         fetch("/trips")
@@ -64,7 +65,7 @@ function AuthenticatedApp({ currentUser, setCurrentUser }) {
         .then(resp => {
             if (resp.ok) {
                 setCurrentUser(null)
-                // window.history.push(null, "", "/")
+                history.push("/")
             }
         })
     }
