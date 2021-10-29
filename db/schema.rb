@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_185214) do
+ActiveRecord::Schema.define(version: 2021_10_29_164139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 2021_10_26_185214) do
   end
 
   create_table "user_trips", force: :cascade do |t|
-    t.string "method_of_transportation"
-    t.integer "transportation_cost"
-    t.string "stay"
-    t.integer "stay_cost"
+    t.string "method_of_transportation", default: ""
+    t.integer "transportation_cost", default: 0
+    t.string "stay", default: ""
+    t.integer "stay_cost", default: 0
     t.string "commentary"
     t.integer "user_id"
     t.integer "trip_id"

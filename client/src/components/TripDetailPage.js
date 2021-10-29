@@ -24,6 +24,8 @@ function TripDetailPage({ deleteTrip, currentUser }) {
     const [isPlanAdded, setIsPlanAdded] = useState(false)
     const [isPlanEdited, setIsPlanEdited] = useState(false)
     const [isPlanDeleted, setIsPlanDeleted] = useState(false)
+    const [isEditedTravel, setIsEditedTravel] = useState(false)
+    const [isEditedStay, setIsEditedStay] = useState(false)
 
     const tripId = useParams().id;
 
@@ -36,7 +38,7 @@ function TripDetailPage({ deleteTrip, currentUser }) {
             setIsLoaded(!isLoaded)
             checkIfUserCanEdit(tripData.users)
         })
-    }, [isPlanDeleted, isPlanAdded, isPlanEdited])
+    }, [isPlanDeleted, isPlanAdded, isPlanEdited, isEditedTravel, isEditedStay])
 
     function handleDelete() {
         deleteTrip(tripId)
@@ -86,6 +88,32 @@ function TripDetailPage({ deleteTrip, currentUser }) {
         .then(data => setIsPlanDeleted(!isPlanDeleted))
     }
 
+    function editTravel(editedTravel) {
+        fetch(`/user_trips/${editedTravel.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(editedTravel)
+        })
+        .then(resp => resp.json())
+        .then(date => setIsEditedTravel(!isEditedTravel))
+    }
+
+    function editStay(editedStay) {
+        fetch(`/user_trips/${editedStay.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(editedStay)
+        })
+        .then(resp => resp.json())
+        .then(date => setIsEditedStay(!isEditedStay))
+    }
+
     return (
         <div>
             <div className="card mb-3">
@@ -104,7 +132,7 @@ function TripDetailPage({ deleteTrip, currentUser }) {
                     {isEditable ? <button type="button" className="btn btn-danger" onClick={handleDelete}>Delete Trip</button> : null }
                 </div>
             </div>
-            {isEditable ? <TravelCard userTrip={tripObj.user_trip}/> : null}
+            {isEditable ? <TravelCard userTrip={tripObj.user_trip} editTravel={editTravel} editStay={editStay}/> : null}
             <p/>
             <h2>Trip Plans</h2>
             <p/>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function TravelCard({ userTrip }) {
+function TravelCard({ userTrip, editStay, editTravel }) {
 
     const [isEditFormTravel, setIsEditFormTravel] = useState(false)
     const [isEditFormStay, setIsEditFormStay] = useState(false)
@@ -21,6 +21,18 @@ function TravelCard({ userTrip }) {
         })
     }
 
+    function handleSaveTravel(event) {
+        event.preventDefault()
+        editTravel(editUserTripObj)
+        setIsEditFormTravel(!isEditFormTravel)
+    }
+
+    function handleSaveStay(event) {
+        event.preventDefault()
+        editStay(editUserTripObj)
+        setIsEditFormStay(!isEditFormStay)
+    }
+
     function handleShowTravelEditForm() {
         if (!isEditFormTravel) {
             return (
@@ -30,7 +42,7 @@ function TravelCard({ userTrip }) {
                             <h5 className="card-title">Travel Information</h5>
                             <p className="card-text">Method of Travel: {editUserTripObj.method_of_transportation}</p>
                             <p className="card-text">Travel Cost: ${editUserTripObj.transportation_cost}</p>
-                            <button type="button" className="btn btn-secondary">Edit</button>
+                            <button type="button" className="btn btn-secondary" onClick={() => setIsEditFormTravel(!isEditFormTravel)}>Edit</button>
                         </div>
                     </div>
                 </div>
@@ -43,7 +55,7 @@ function TravelCard({ userTrip }) {
                             <h5 className="card-title">Travel Information</h5>
                             <p className="card-text">Method of Travel: <input type="text" name="method_of_transportation" value={editUserTripObj.method_of_transportation} onChange={handleInput}/></p>
                             <p className="card-text">Travel Cost: $<input type="text" name="transportation_cost" value={editUserTripObj.transportation_cost} onChange={handleInput}/></p>
-                            <button type="button" className="btn btn-secondary">Edit</button>
+                            <button type="button" className="btn btn-secondary" onClick={handleSaveTravel}>Save</button>
                         </div>
                     </div>
                 </div>
@@ -60,7 +72,7 @@ function TravelCard({ userTrip }) {
                             <h5 className="card-title">Stay Information</h5>
                             <p className="card-text">Accommodation Type: {editUserTripObj.stay}</p>
                             <p className="card-text">Stay Cost: ${editUserTripObj.stay_cost}</p>
-                            <button type="button" className="btn btn-secondary">Edit</button>
+                            <button type="button" className="btn btn-secondary" onClick={() => setIsEditFormStay(!isEditFormStay)}>Edit</button>
                         </div>
                     </div>
                 </div>
@@ -72,7 +84,7 @@ function TravelCard({ userTrip }) {
                         <h5 className="card-title">Stay Information</h5>
                         <p className="card-text">Accommodation Type: <input type="text" name="stay" value={editUserTripObj.stay} onChange={handleInput}/></p>
                         <p className="card-text">Stay Cost: $<input type="text" name="stay_cost" value={editUserTripObj.stay_cost} onChange={handleInput}/></p>
-                        <button type="button" className="btn btn-secondary">Edit</button>
+                        <button type="button" className="btn btn-secondary" onClick={handleSaveStay}>Save</button>
                     </div>
                 </div>
             </div>
