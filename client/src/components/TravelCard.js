@@ -64,32 +64,41 @@ function TravelCard({ userTrip, editStay, editTravel }) {
     }
 
     function handleShowStayEditForm() {
-        if (!isEditFormStay) {
             return (
                 <div className="col-sm-6">
                     <div className="card">
                         <div className="card-body">
                             <h5 className="card-title">Stay Information</h5>
-                            <p className="card-text">Accommodation Type: {editUserTripObj.stay}</p>
-                            <p className="card-text">Stay Cost: ${editUserTripObj.stay_cost}</p>
-                            <button type="button" className="btn btn-secondary" onClick={() => setIsEditFormStay(!isEditFormStay)}>Edit</button>
+                            {isEditFormStay ? <p className="card-text">Accommodation Type: <input type="text" name="stay" value={editUserTripObj.stay} onChange={handleInput}/></p> :  <p className="card-text">Accommodation Type: {editUserTripObj.stay}</p>}
+                            {isEditFormStay ? <p className="card-text">Stay Cost: $<input type="text" name="stay_cost" value={editUserTripObj.stay_cost} onChange={handleInput}/></p> : <p className="card-text">Stay Cost: ${editUserTripObj.stay_cost}</p>}
+                            {isEditFormStay ? <button type="button" className="btn btn-secondary" onClick={handleSaveStay}>Save</button> : <button type="button" className="btn btn-secondary" onClick={() => setIsEditFormStay(!isEditFormStay)}>Edit</button>}
                         </div>
                     </div>
                 </div>
             )
-        } else {
-            <div className="col-sm-6">
-                <div className="card">
-                    <div className="card-body">
-                        <h5 className="card-title">Stay Information</h5>
-                        <p className="card-text">Accommodation Type: <input type="text" name="stay" value={editUserTripObj.stay} onChange={handleInput}/></p>
-                        <p className="card-text">Stay Cost: $<input type="text" name="stay_cost" value={editUserTripObj.stay_cost} onChange={handleInput}/></p>
-                        <button type="button" className="btn btn-secondary" onClick={handleSaveStay}>Save</button>
-                    </div>
-                </div>
-            </div>
-        }
     }
+
+    // function handleShowStayEditForm() {
+    //     if (!isEditFormStay) {
+    //         return (
+    //             <div className="card-body">
+    //                     <h5 className="card-title">Stay Information</h5>
+    //                     <p className="card-text">Accommodation Type: {editUserTripObj.stay}</p>
+    //                     <p className="card-text">Stay Cost: ${editUserTripObj.stay_cost}</p>
+    //                     <button type="button" className="btn btn-secondary" onClick={() => setIsEditFormStay(!isEditFormStay)}>Edit</button>
+    //             </div>
+    //         )
+    //     } else {
+    //         return (
+    //             <div className="card-body">
+    //                 <h5 className="card-title">Stay Information</h5>
+    //                 <p className="card-text">Accommodation Type: <input type="text" name="stay" value={editUserTripObj.stay} onChange={handleInput}/></p>
+    //                 <p className="card-text">Stay Cost: $<input type="text" name="stay_cost" value={editUserTripObj.stay_cost} onChange={handleInput}/></p>
+    //                 <button type="button" className="btn btn-secondary" onClick={handleSaveStay}>Save</button>
+    //             </div>
+    //         )
+    //     }
+    // }
 
     return (
         <div className="row">
