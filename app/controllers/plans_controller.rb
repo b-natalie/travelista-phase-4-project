@@ -13,6 +13,10 @@ class PlansController < ApplicationController
 
     def create
         plan = Plan.create!(plan_params)
+        user_plan = UserPlan.create!(
+            user_id: @current_user.id,
+            plan_id: plan.id
+        )
         render json: plan, status: :created
     end
 
